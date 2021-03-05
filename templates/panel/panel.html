@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div>
+
+    {% if request.user.is_seller %}
+    <a href="{% url 'new_product' %}" id="make_new_product">
+        New Product
+    </a>
+
+    <a id="my_products" href="{% url 'products' %}"> my products</a>
+    {% endif %}
+
+    <form action="{% url 'become_seller' %}" method="POST" id="become_seller">
+        {% csrf_token %}
+        <input type="submit" value="become_seller!">
+    </form>
+
+    
+    {% if was_seller == True %}
+        <div id="error">
+            شما فروشنده هستید
+        </div>
+    {% elif was_seller == False %}
+        <div id="done">
+            با موفقیت فروشنده شدید
+        </div>
+    {% endif %}
+        
+</div>
+
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="all_products">
+    همه محصولات
+
+    <form action="." method="POST" id="search_products">
+        {% csrf_token %}
+        <input type="text" name="title" id="title">
+        <input type="number" name="min_price" id="min_price">
+        <input type="number" name="max_price" id="max_price">
+        <button type="submit" name="submit">Submit</button>
+    </form>
+
+            {% for product in products %}
+            <div class="{{ product.underscore_name }}_{{ product.user.username }}">
+             
+            {% if not request.user.is_authenticated or product.user.username !=  request.user.username %}
+            <form action="{% url 'rate' %}" method="POST" id="rate_{{ product.name }}_{{ product.user.username }}">
+            {% csrf_token %}
+                <input type="number"  name="rate" min=0 max=5>
+                <input type="hidden"  name="name" value="{{ product.name }}">
+                <button type="submit" name="submit">rate</button>
+            </form>
+            {% endif %}
+            
+
+          
+            <div id="product_rate"> {{product.rate}} </div>
+
+                <h4>{{ product.name }}</h4>
+                <div>{{ product.price }}</div>
+                <div>{{ product.quantity }}</div>
+                <div>{{ product.user.get_full_name }}</div>
+            </div>
+            {% endfor %}
+</div>
+
+{% endblock %}

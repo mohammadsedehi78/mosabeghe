@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+     <div id="all_products">
+          محصولات
+        {% for product in products %}
+            <div class="{{ product.underscore_name }}_{{ request.user.username }}">
+                <a href="{% url 'edit_product' pk=product.id %}" id="{{ product.edit_id }}">Edit</a>
+                <a href="#" id="{{ product.delete_id }}">Delete</a>
+                <h4>{{ product.name }}</h4>
+                <div>{{ product.price }}</div>
+                <div>{{ product.quantity }}</div>
+            </div>
+        {% endfor %}
+        </div>
+
+{% endblock %}

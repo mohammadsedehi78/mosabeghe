@@ -1,0 +1,15 @@
+<div id="navbar">
+    
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}" id="logout">خروج</a>
+    <a href="{% url 'panel' %}" id="panel">پنل </a>
+    {% else %}
+    <a href="{% url 'login_page' %}" id="login">ورود</a>
+    {% endif %}
+    <a href="{% url 'register' %}" id="register">ثبت نام</a>
+    <a href="/" id="homepage">صفحه اصلی</a>
+    <a href="{% url 'contact_us' %}" id="contact_us">ارتباط با ما</a>
+    <a href="{% url 'all_products' %}" id="all_products">همه محصولات</a>
+    
+
+</div>
